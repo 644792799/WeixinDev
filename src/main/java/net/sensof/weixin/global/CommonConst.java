@@ -37,6 +37,10 @@ public class CommonConst {
 	 */
 	public static final String MSGTYPE_LINK = "link";
 	/**
+	 * 图文消息
+	 */
+	public static final String MSGTYPE_NEWS = "news";
+	/**
 	 * 事件
 	 */
 	public static final String MSGTYPE_EVENT = "event";
@@ -64,4 +68,8 @@ public class CommonConst {
 	 * 点击菜单跳转链接时的事件推送
 	 */
 	public static final String EVENT_VIEW = "VIEW";
+	/**
+	 * access_token(是公众号的全局唯一接口调用凭据),本地文件名
+	 */
+	public static final String TOKEN_FILE_NAME = "ACCESSTOKEN.token";
 }

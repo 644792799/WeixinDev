@@ -61,7 +61,7 @@ public class WeixinServlet extends HttpServlet{
 				if("1".equals(content)){
 					message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.firstMenuText());
 				}else if("2".equals(content)){
-					message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.secondMenuText());
+					message = MessageUtil.initNewsMessage(toUserName, fromUserName);
 				}else if("?".equals(content) || "？".equals(content)){
 					message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.menuText());
 				}
@@ -80,6 +80,8 @@ public class WeixinServlet extends HttpServlet{
 				}else if(CommonConst.EVENT_VIEW.equals(eventType)){
 					
 				}
+			}else if(CommonConst.MSGTYPE_NEWS.equals(msgType)){
+				
 			}
 			out.print(message);
 			System.out.println(message);

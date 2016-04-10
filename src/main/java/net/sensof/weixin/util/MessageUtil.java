@@ -2,6 +2,7 @@ package net.sensof.weixin.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sensof.weixin.global.CommonConst;
+import net.sensof.weixin.po.News;
+import net.sensof.weixin.po.NewsMessage;
 import net.sensof.weixin.po.TextMessage;
 
 import org.dom4j.Document;
@@ -70,5 +73,45 @@ public class MessageUtil {
 		StringBuffer sb = new StringBuffer();
 		sb.append("4343434343");
 		return sb.toString();
+	}
+	/**
+	 * 
+	 * @param newsMessage
+	 * @return
+	 */
+	public static String newsMessageToXml(NewsMessage newsMessage){
+		XStream xstream = new XStream();
+		xstream.alias("xml", NewsMessage.class);
+		xstream.alias("item", News.class);
+		return xstream.toXML(newsMessage);
+	}
+	
+	/**
+	 * 图文消息组装
+	 * @param toUserName
+	 * @param fromUserName
+	 * @param content
+	 * @return
+	 */
+	public static String initNewsMessage(String toUserName, String fromUserName){
+		List<News> newsList = new ArrayList<News>();
+		NewsMessage newsMessage = new NewsMessage();
+		
+		News news = new News();
+		news.setTitle("一条图文消息");
+		news.setDescription("这是图文消息描述");
+		news.setPicUrl("http://dd29755f.ngrok.io/WeixinDev/image/dm.jpg");
+		news.setUrl("www.baidu.com");
+		
+		newsList.add(news);
+		
+		newsMessage.setToUserName(fromUserName);
+		newsMessage.setFromUserName(toUserName);
+		newsMessage.setCreateTime(new Date().getTime());
+		newsMessage.setArticles(newsList);
+		newsMessage.setArticleCount(newsList.size());
+		newsMessage.setMsgType(CommonConst.MSGTYPE_NEWS);
+		
+		return newsMessageToXml(newsMessage);
 	}
 }
